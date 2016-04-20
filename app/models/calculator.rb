@@ -1,6 +1,12 @@
 require_relative './calculator/calculator_factory'
 
-class Calculator < Base
+class Calculator < BaseModel
+  
+  include Mongoid::Document
+  field :value1
+  field :value2
+  field :operation, type: String
+  field :result
 
   OPERATIONS = %w(sum minus divide multiply)
 

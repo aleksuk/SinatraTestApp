@@ -3,6 +3,11 @@ Dir['./app/helpers/*.rb'].each do |file|
   require file
 end
 
+#uploaders
+Dir['./app/uploaders/*.rb'].each do |file|
+  require file
+end
+
 # models
 base_model = './app/models/base.rb'
 require base_model
@@ -21,4 +26,6 @@ require app_controller
 Dir['./app/controllers/*.rb'].each do |file|
   require file unless base_controller == file || app_controller == file
 end
+
+
 

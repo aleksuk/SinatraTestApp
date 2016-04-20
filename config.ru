@@ -1,7 +1,12 @@
 require 'sinatra'
-require 'json'
+require 'sinatra-initializers'
+require 'dotenv'
 
-require './config/routes'
+Dotenv.load
+
+require 'mongoid'
+require 'carrierwave/mongoid'
+require 'tilt/jbuilder'
 require './dependencies'
 require './application'
 
