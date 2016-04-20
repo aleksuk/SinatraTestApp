@@ -13,9 +13,9 @@ base_model = './app/models/base.rb'
 require base_model
 
 
-Dir['./app/models/*.rb'].each { |file|
-  require file unless base_model == file
-}
+Dir['./app/models/*.rb'].each do |file|
+  require file
+end
 
 # controllers
 base_controller = './app/controllers/base_controller.rb'
@@ -24,7 +24,7 @@ require base_controller
 require app_controller
 
 Dir['./app/controllers/*.rb'].each do |file|
-  require file unless base_controller == file || app_controller == file
+  require file
 end
 
 

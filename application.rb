@@ -12,7 +12,6 @@ module Calc
     end
 
     get '/calculators' do
-      p 111, ENV['MONGO_HOST']
       content_type :json
       set_route(CalculatorsController, :show)
     end
