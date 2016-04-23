@@ -1,3 +1,4 @@
+Dotenv.load
 Mongoid.load!('config/mongoid.yml')
 
 module BSON

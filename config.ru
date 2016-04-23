@@ -1,14 +1,5 @@
-require 'sinatra'
-require 'sinatra-initializers'
-require 'dotenv'
+require './loader'
 
-Dotenv.load
-
-require 'mongoid'
-require 'mini_magick'
-require 'carrierwave/mongoid'
-require 'tilt/jbuilder'
-require './dependencies'
-require './application'
+Calc::AutoLoader.load
 
 run Calc::Application
