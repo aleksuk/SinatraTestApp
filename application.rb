@@ -3,41 +3,43 @@ module Calc
 
     register Sinatra::Initializers
 
-    def set_route(controller, action)
-      if action.is_a? String
-        action = action.to_sym
-      end
+    def set_route(controller, action, type = :json)
+      content_type type
 
-      controller.new(params: params, request: request).call(action)
+      action = action.to_sym if action.is_a? String
+
+      controller.new(self).call(action)
+    end
+
+    post '/calculators' do
+      set_route(CalculatorsController, :create)
+    end
+
+    delete '/calculators/:id' do
+      set_route(CalculatorsController, :destroy)
     end
 
     get '/calculators' do
-      content_type :json
-      set_route(CalculatorsController, :show)
+      set_route(CalculatorsController, :index)
     end
 
-    get '/all' do
-      content_type :json
+    get '/calculators/:id' do
       set_route(CalculatorsController, :index)
     end
 
     post '/images' do
-      content_type :json
       set_route(ImagesController, :create)
     end
 
     get '/images' do
-      content_type :json
       set_route(ImagesController, :index)
     end
 
     get '/images/:id' do
-      content_type :json
       set_route(ImagesController, :show)
     end
 
-    delete '/images' do
-      content_type :json
+    delete '/images/:id' do
       set_route(ImagesController, :destroy)
     end
   end

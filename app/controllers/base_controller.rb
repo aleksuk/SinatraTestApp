@@ -1,14 +1,21 @@
 class BaseController
-  attr_accessor :params,
-                :request,
-                :response,
-                :env,
-                :result,
+  attr_accessor :result,
                 :is_rendered
 
-  def initialize(**config)
-    self.params = config[:params]
-    self.request = config[:request]
+  def initialize(router)
+    @router = router
+  end
+
+  def request
+    @router.request
+  end
+
+  def params
+    router.params
+  end
+
+  def response
+    router.response
   end
 
   def call(action)
@@ -18,13 +25,13 @@ class BaseController
   end
 
   def render(path, **params)
-    if !is_rendered && path.nil?
-      self.result = render_json(get_default_path(params[:action]))
-      self.is_rendered = true
-    elsif !is_rendered && path.is_a?(String)
+    unless is_rendered
+      path ||= params[:action]
       self.result = render_json(get_path_prefix(path))
       self.is_rendered = true
     end
+
+    router.status(params[:status]) if params[:status]
 
     self.result
   end
@@ -40,16 +47,25 @@ class BaseController
       path.join('_').downcase
     end
 
-    def get_default_path(action)
-      "app/views/#{get_current_controller_name}/#{action}.json.jbuilder"
-    end
-
     def render_json(path)
       Tilt::JbuilderTemplate.new(path).render(self)
     end
 
     def get_path_prefix(path)
-      "app/views/#{path}.json.jbuilder"
+      full_path = get_partial_path(path)
+      "app/views/#{full_path}.json.jbuilder"
+    end
+
+    def get_partial_path(path)
+      if path.is_a?(String) && path.include?('/')
+        path
+      else
+        "#{get_current_controller_name}/#{path}"
+      end
+    end
+
+    def router
+      @router
     end
 
 end

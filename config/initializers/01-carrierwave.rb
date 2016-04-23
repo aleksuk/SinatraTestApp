@@ -1,6 +1,6 @@
 CarrierWave.configure do |config|
   config.permissions = 0666
   config.directory_permissions = 0777
-  # config.storage = :file
-  # config.storage = :grid_fs
+  config.root = File.join(Dir.pwd, 'public/')
+  config.asset_host = ENV['ASSETS_HOST']
 end

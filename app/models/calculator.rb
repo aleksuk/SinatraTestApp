@@ -3,24 +3,29 @@ require_relative './calculator/calculator_factory'
 class Calculator < BaseModel
   
   include Mongoid::Document
+
   field :value1
   field :value2
   field :operation, type: String
-  field :result
 
-  OPERATIONS = %w(sum minus divide multiply)
+  validates :operation, inclusion: { in: %w(sum minus divide multiply) }
+  validates :value1, presence: true
+  validates :value2, presence: true
 
-  def self.calculate(value1, value2, action)
-    is_valid_operation = OPERATIONS.any? do |el|
-      el == action
-    end
+  validate :check_calculation_result
 
-    if is_valid_operation
-      calc = CalculatorModule::CalculatorFactory.get_calc(value1, value2)
-      calc.send(action.to_sym)
-    else
-      raise StandardError.new, 'Invalid operation'
-    end
+  def result
+    calc = CalculatorModule::CalculatorFactory.get_calc(value1, value2)
+    calc.send(operation.to_sym)
   end
+
+  private
+    def check_calculation_result
+      begin
+        result
+      rescue
+        errors.add(:result, 'values or operation is invalid')
+      end
+    end
 
 end

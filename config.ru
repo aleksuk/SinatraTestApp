@@ -5,6 +5,7 @@ require 'dotenv'
 Dotenv.load
 
 require 'mongoid'
+require 'mini_magick'
 require 'carrierwave/mongoid'
 require 'tilt/jbuilder'
 require './dependencies'

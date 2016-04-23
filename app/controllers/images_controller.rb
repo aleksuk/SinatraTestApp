@@ -10,18 +10,29 @@ class ImagesController < ApplicationController
 
   def create
     @image = Image.new(image_params)
-    @image.save!
-    render 'images/show'
+
+    if @image.save
+      render :show
+    else
+      @errors = @image.errors
+      render 'base/errors', status: 422
+    end
+
   end
 
   def destroy
-    Image.destroy_all
+    @image = Image.find(params[:id])
+    @image.destroy!
+
     render 'base/empty'
   end
 
   private
     def image_params
-      { picture: params[:picture] }
+      {
+        remote_picture_url: params[:picture],
+        effect: params[:effect]
+      }
     end
 
 end

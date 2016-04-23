@@ -8,6 +8,7 @@ gem 'carrierwave'
 gem 'carrierwave-mongoid'
 gem 'dotenv'
 gem 'mongoid'
+gem 'mini_magick'
 
 group :development, :test do
   gem 'guard'

@@ -1,5 +1,5 @@
 json.images(@images) do |image|
-  json.extract! image,
-                :id,
-                :picture
+  json.id image.id
+  json.effect image.effect
+  json.url image.picture.url
 end

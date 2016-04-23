@@ -5,21 +5,27 @@ class CalculatorsController <  ApplicationController
   end
 
   def show
-    begin
-      calculator_values = cast_params
+    @calculation_result = Calculator.find(params[:id])
+  end
 
-      @result = Calculator.calculate(
-        calculator_values[:value1],
-        calculator_values[:value2],
-        params[:operation]
-      )
+  def create
+    calculator_values = cast_params
 
-      @calculation_result = Calculator.new(calculator_values.merge!({ operation: params[:operation], result: @result }))
-      @calculation_result.save!
-    rescue => e
-      @error = e
-      render 'base/error'
+    @calculation_result = Calculator.new(calculator_values.merge!({ operation: params[:operation] }))
+
+    if @calculation_result.save
+      render :show
+    else
+      @errors = @calculation_result.errors
+      render 'base/errors', status: 422
     end
+  end
+
+  def destroy
+    @calculation_result = Calculator.find(params[:id])
+    @calculation_result.destroy!
+
+    render 'base/empty'
   end
 
   private
