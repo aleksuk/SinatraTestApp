@@ -4,8 +4,6 @@ class Image < BaseModel
 
   field :effect
 
-  validates :remote_picture_url, presence: true, format: /https?:\/\/[\S]+/
-
   validate :check_image
 
   mount_uploader :picture, ImageUploader

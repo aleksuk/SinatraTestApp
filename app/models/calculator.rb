@@ -24,7 +24,7 @@ class Calculator < BaseModel
       begin
         result
       rescue
-        errors.add(:result, 'values or operation is invalid')
+        errors.add(:result, 'values are invalid') unless errors.include?(:operation)
       end
     end
 
