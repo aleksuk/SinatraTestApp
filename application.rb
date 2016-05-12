@@ -1,3 +1,7 @@
+require './loader'
+
+Calc::AutoLoader.load
+
 module Calc
   class Application < Sinatra::Application
 
@@ -44,4 +48,3 @@ module Calc
     end
   end
 end
-

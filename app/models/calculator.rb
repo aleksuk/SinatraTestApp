@@ -1,6 +1,6 @@
 require_relative './calculator/calculator_factory'
 
-class Calculator < BaseModel
+class Calculator < Base
   
   include Mongoid::Document
 

@@ -1,5 +1,3 @@
-require './loader'
+require './application'
 
-Calc::AutoLoader.load
-
-run Calc::Application
+run Rack::URLMap.new('/' => Calc::Application, '/sidekiq' => Sidekiq::Web)

@@ -1,0 +1,6 @@
+:queues:
+  - default
+  - [Images, 1]
+
+:limits:
+  Images: 5

@@ -9,9 +9,12 @@ gem 'carrierwave-mongoid'
 gem 'dotenv'
 gem 'mongoid'
 gem 'mini_magick'
+gem 'sidekiq'
+gem 'sidekiq-limit_fetch'
 
 group :development, :test do
   gem 'guard'
   gem 'guard-bundler'
   gem 'guard-rack'
+  gem 'guard-sidekiq'
 end

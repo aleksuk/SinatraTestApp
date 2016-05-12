@@ -9,6 +9,8 @@ module Calc
         mini_magick
         carrierwave/mongoid
         tilt/jbuilder
+        sidekiq/web
+        sidekiq/limit_fetch
       )
 
       BASE_FILES = %w(
@@ -19,6 +21,7 @@ module Calc
 
       DIRECTORIES = %w(
         ./app/uploaders/*.rb
+        ./app/workers/*.rb
         ./app/models/*.rb
         ./app/controllers/*.rb
       )
@@ -39,6 +42,16 @@ module Calc
         require_dependencies(Dir[dir])
       end
 
+      def lazy_load_file(file)
+        name = File.basename(file, '.rb').camelize
+
+        Object.autoload(name, file)
+      end
+
+      def lazy_load_dir(dir)
+        Dir[dir].each { |file| lazy_load_file(file) }
+      end
+
       def require_dependencies(files)
         files.each do |file|
           require file
@@ -47,5 +60,3 @@ module Calc
     end
   end
 end
-
-

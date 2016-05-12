@@ -12,12 +12,13 @@ class ImagesController < ApplicationController
     @image = Image.new(image_params)
 
     if @image.save
+      ImageProcessingWorker.perform_async(@image.id)
+
       render :show
     else
       @errors = @image.errors
       render 'base/errors', status: 422
     end
-
   end
 
   def destroy

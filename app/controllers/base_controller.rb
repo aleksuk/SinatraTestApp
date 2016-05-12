@@ -1,13 +1,12 @@
 class BaseController
-  attr_accessor :result,
-                :is_rendered
+  attr_accessor :result, :is_rendered
 
   def initialize(router)
     @router = router
   end
 
   def request
-    @router.request
+    router.request
   end
 
   def params

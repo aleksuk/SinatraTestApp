@@ -1,2 +1,2 @@
-class BaseModel
+class Base
 end
