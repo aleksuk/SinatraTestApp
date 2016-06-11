@@ -12,7 +12,7 @@ class ImagesController < ApplicationController
     @image = Image.new(image_params)
 
     if @image.save
-      ImageProcessingWorker.perform_async(@image.id)
+      ImageProcessingWorker.perform_async(@image.id, params[:callback])
 
       render :show
     else

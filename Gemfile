@@ -10,6 +10,8 @@ gem 'dotenv'
 gem 'mongoid'
 gem 'mini_magick'
 gem 'sidekiq'
+gem 'http'
+gem 'active_model_serializers'
 gem 'sidekiq-limit_fetch'
 
 group :development, :test do

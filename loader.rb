@@ -11,9 +11,11 @@ module Calc
         tilt/jbuilder
         sidekiq/web
         sidekiq/limit_fetch
+        active_model_serializers
       )
 
       BASE_FILES = %w(
+        ./app/serializers/base_serializer.rb
         ./app/models/base.rb
         ./app/controllers/base_controller.rb
         ./app/controllers/application_controller.rb
@@ -22,6 +24,7 @@ module Calc
       DIRECTORIES = %w(
         ./app/uploaders/*.rb
         ./app/workers/*.rb
+        ./app/serializers/*.rb
         ./app/models/*.rb
         ./app/controllers/*.rb
       )
